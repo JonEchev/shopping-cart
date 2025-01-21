@@ -40,6 +40,7 @@ El código se encuentra implementado con Java y Gradle usando las siguientes lib
 5. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart/blob/main/src/main/resources/application.yaml)
 6. Permita la construcción del proyecto con gradle.
 7. Inicialice el proyecto, ejecutando la clase: CarApplication.java
+8. La documentación Swagger del backend se encuentra en la siguiente ruta: http://localhost:80/shopping/swagger-ui/index.html
 
 Para ejecutar las pruebas unitarias:
 1. Ejecute el proyecto desde test en gradle.
