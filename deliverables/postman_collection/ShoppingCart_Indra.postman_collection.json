@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "d9d8674d-becb-4ea8-bbfe-eabe798380a5",
+		"name": "ShoppingCart_Indra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34070709"
+	},
+	"item": [
+		{
+			"name": "ShoppingCart_Create_Cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ShoppingCart_Add_Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product\": {\n        \"id\": 3\n    },\n    \"amount\": 4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/agregar/:cartId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						"agregar",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ShoppingCart_Get_Cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/:cartId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ShoppingCart_Delete_Product_Cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/eliminar/:cartId/:productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						"eliminar",
+						":cartId",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ShoppingCart_Update_Quantity_Cart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product\": {\n        \"id\": 3\n    },\n    \"amount\": 0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/actualizar/:cartId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						"actualizar",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ShoppingCart_Apply_Coupon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:80/shopping/api/cart/aplicar-cupon/:cartId?codeCoupon=DESC10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shopping",
+						"api",
+						"cart",
+						"aplicar-cupon",
+						":cartId"
+					],
+					"query": [
+						{
+							"key": "codeCoupon",
+							"value": "DESC10"
+						}
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
