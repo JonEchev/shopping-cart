@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # shopping.cart
 
 Microservicio para el intercambio de datos a traves de REST para un carrito de compras.
@@ -28,3 +29,7 @@ El código se encuentra implementado con las siguientes librerías:
 - Log4j - Para escribir mensajes de registro
 
 ---
+=======
+# shopping-cart
+API para la gestión de Carrito de Compras para Indra
+>>>>>>> 75a3ea49be30b80fda52740c8f168d969b0afc10
