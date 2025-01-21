@@ -1,0 +1,30 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+db:
+  database: ${DATABASE_NAME:cart_shopping_indra_db}
+  host: ${DB_ENDPOINT:localhost}
+  schema: ${SCHEMA:public}
+  port: ${PORT:5432}
+  username: ${DB_USERNAME:postgres}
+  password: ${DB_PASSWORD:root}
+  driver: ${DRIVER:org.postgresql.Driver}
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: 80
+  address: 0.0.0.0
+  servlet:
+    context-path: /shopping
+management:
+  endpoints:
+    web:
+      base-path: /
+      path-mapping:
+        health: health
+
+info:
+  status: UP

@@ -1,0 +1,7 @@
+
+p
+java:S1192<"SDefine a constant instead of duplicating this literal "msg_cart_not_found" 5 times.(ÙÜ­Î8È¶õÌÈ2
+_
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8óƒŞÉÈ2
+p
+java:S6204¸"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8†„ŞÉÈ2

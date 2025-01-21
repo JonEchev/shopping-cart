@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shopping-cart</a> &gt; <a href="index.source.html" class="el_package">shopping.cartapi.service</a> &gt; <span class="el_source">CartServiceImpl.java</span></div><h1>CartServiceImpl.java</h1><pre class="source lang-java linenums">package shopping.cartapi.service;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import shopping.general.model.CartDTO;
+import shopping.general.model.CartProductDTO;
+import shopping.general.model.CouponDTO;
+import shopping.general.model.ProductDTO;
+import shopping.general.database.entity.Carrito;
+import shopping.general.database.entity.CarritoProducto;
+import shopping.general.database.entity.Producto;
+import shopping.general.database.repository.CarritoProductoRepository;
+import shopping.general.database.repository.CarritoRepository;
+import shopping.general.database.repository.ProductoRepository;
+import shopping.general.utilities.Utilities;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class CartServiceImpl implements CartService {
+
+    private final CarritoRepository carritoRepository;
+    private final ProductoRepository productoRepository;
+    private final CarritoProductoRepository carritoProductoRepository;
+
+    @Autowired
+    CouponService couponService;
+
+<span class="nc" id="L36">    Logger log = LogManager.getLogger(CartServiceImpl.class);</span>
+
+    public CartServiceImpl(CarritoRepository carritoRepository, ProductoRepository productoRepository,
+<span class="nc" id="L39">                           CarritoProductoRepository carritoProductoRepository) {</span>
+<span class="nc" id="L40">        this.carritoRepository = carritoRepository;</span>
+<span class="nc" id="L41">        this.productoRepository = productoRepository;</span>
+<span class="nc" id="L42">        this.carritoProductoRepository = carritoProductoRepository;</span>
+<span class="nc" id="L43">    }</span>
+
+    public CartDTO createCart() {
+
+<span class="nc" id="L47">        Carrito cart = new Carrito();</span>
+<span class="nc" id="L48">        cart.setTotal(BigDecimal.ZERO);</span>
+<span class="nc" id="L49">        cart.setlCarritoProducto(new ArrayList&lt;&gt;());</span>
+<span class="nc" id="L50">        Carrito savedCart = carritoRepository.save(cart);</span>
+
+<span class="nc" id="L52">        return convertToCartDTO(savedCart);</span>
+
+    }
+
+    @Transactional
+    public CartDTO addProduct(Long cartId, CartProductDTO cartProductDTO) {
+
+<span class="nc" id="L59">        Carrito carrito = carritoRepository.findById(cartId)</span>
+<span class="nc" id="L60">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L62">        Producto producto = productoRepository.findById(cartProductDTO.getProduct().getId())</span>
+<span class="nc" id="L63">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_id_product_not_found&quot;)));</span>
+
+<span class="nc" id="L65">        Optional&lt;CarritoProducto&gt; existing = carrito.getlCarritoProducto()</span>
+<span class="nc" id="L66">                .stream()</span>
+<span class="nc" id="L67">                .filter(cp -&gt; cp.getProducto().getId().equals(producto.getId()))</span>
+<span class="nc" id="L68">                .findFirst();</span>
+
+<span class="nc" id="L70">        log.info(&quot;***MS ShoppingCart - existe la compra en el carrito: {}&quot;, existing.isPresent());</span>
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (existing.isPresent()) {</span>
+<span class="nc" id="L73">            CarritoProducto carritoProducto = existing.get();</span>
+<span class="nc" id="L74">            carritoProducto.setCantidad(carritoProducto.getCantidad() + cartProductDTO.getAmount());</span>
+<span class="nc" id="L75">            carritoProducto.setSubtotal(carritoProducto.getProducto().getPrecio()</span>
+<span class="nc" id="L76">                    .multiply(BigDecimal.valueOf(carritoProducto.getCantidad())));</span>
+<span class="nc" id="L77">            carritoProductoRepository.save(carritoProducto);</span>
+<span class="nc" id="L78">        } else {</span>
+<span class="nc" id="L79">            CarritoProducto cartProductNew = new CarritoProducto();</span>
+<span class="nc" id="L80">            cartProductNew.setCarrito(carrito);</span>
+<span class="nc" id="L81">            cartProductNew.setProducto(producto);</span>
+<span class="nc" id="L82">            cartProductNew.setCantidad(cartProductDTO.getAmount());</span>
+<span class="nc" id="L83">            cartProductNew.setSubtotal(producto.getPrecio().multiply(BigDecimal.valueOf(cartProductDTO.getAmount())));</span>
+<span class="nc" id="L84">            carritoProductoRepository.save(cartProductNew);</span>
+        }
+
+<span class="nc" id="L87">        updateCartTotal(carrito);</span>
+
+<span class="nc" id="L89">        return convertToCartDTO(carritoRepository.save(carrito));</span>
+
+    }
+
+    @Transactional(readOnly = true)
+    public CartDTO getCart(Long cartId) {
+
+<span class="nc" id="L96">        Carrito carrito = carritoRepository.findById(cartId)</span>
+<span class="nc" id="L97">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L99">        return convertToCartDTO(carrito);</span>
+
+    }
+
+    @Transactional
+    public CartDTO deleteProduct(Long cartId, Long productId) {
+
+<span class="nc" id="L106">        Carrito carrito = carritoRepository.findById(cartId)</span>
+<span class="nc" id="L107">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L109">        carrito.getlCarritoProducto().removeIf(cp -&gt; cp.getProducto().getId().equals(productId));</span>
+<span class="nc" id="L110">        carritoProductoRepository.deleteById(productId);</span>
+
+<span class="nc" id="L112">        updateCartTotal(carrito);</span>
+
+<span class="nc" id="L114">        return convertToCartDTO(carritoRepository.save(carrito));</span>
+
+    }
+
+    @Transactional
+    public CartDTO updateQuantity(Long cartId, CartProductDTO cartProductDTO) {
+
+<span class="nc" id="L121">        Carrito carrito = carritoRepository.findById(cartId)</span>
+<span class="nc" id="L122">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L124">        CarritoProducto carritoProducto = carrito.getlCarritoProducto()</span>
+<span class="nc" id="L125">                .stream()</span>
+<span class="nc" id="L126">                .filter(cp -&gt; cp.getProducto().getId().equals(cartProductDTO.getProduct().getId()))</span>
+<span class="nc" id="L127">                .findFirst()</span>
+<span class="nc" id="L128">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_product_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L130">        log.info(&quot;***MS ShoppingCart - la cantidad del producto en el carrito es: {}&quot;, cartProductDTO);</span>
+
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (cartProductDTO.getAmount() == 0) {</span>
+<span class="nc" id="L133">            carrito.getlCarritoProducto().remove(carritoProducto);</span>
+<span class="nc" id="L134">            carritoProductoRepository.delete(carritoProducto);</span>
+        } else {
+<span class="nc" id="L136">            carritoProducto.setCantidad(cartProductDTO.getAmount());</span>
+<span class="nc" id="L137">            carritoProducto.setSubtotal(carritoProducto.getProducto().getPrecio()</span>
+<span class="nc" id="L138">                    .multiply(BigDecimal.valueOf(cartProductDTO.getAmount())));</span>
+<span class="nc" id="L139">            carritoProductoRepository.save(carritoProducto);</span>
+        }
+
+<span class="nc" id="L142">        updateCartTotal(carrito);</span>
+
+<span class="nc" id="L144">        return convertToCartDTO(carritoRepository.save(carrito));</span>
+
+    }
+
+    @Transactional
+    public CartDTO applyCoupon(Long cartId, String codeCoupon) {
+
+<span class="nc" id="L151">        Carrito carrito = carritoRepository.findById(cartId)</span>
+<span class="nc" id="L152">                .orElseThrow(() -&gt; new RuntimeException(Utilities.getValueMessage(&quot;msg_cart_not_found&quot;)));</span>
+
+<span class="nc" id="L154">        CouponDTO couponDTO = couponService.validateCoupon(codeCoupon);</span>
+
+<span class="nc" id="L156">        BigDecimal discount = carrito.getTotal().multiply(couponDTO.getDiscount().divide(BigDecimal.valueOf(100)));</span>
+<span class="nc" id="L157">        carrito.setTotal(carrito.getTotal().subtract(discount));</span>
+<span class="nc" id="L158">        couponService.disableCoupon(codeCoupon);</span>
+
+<span class="nc" id="L160">        return convertToCartDTO(carritoRepository.save(carrito));</span>
+
+    }
+
+    private void updateCartTotal(Carrito carrito) {
+
+<span class="nc" id="L166">        BigDecimal total = carrito.getlCarritoProducto().stream()</span>
+<span class="nc" id="L167">                .map(CarritoProducto::getSubtotal)</span>
+<span class="nc" id="L168">                .reduce(BigDecimal.ZERO, BigDecimal::add);</span>
+
+<span class="nc" id="L170">        carrito.setTotal(total);</span>
+
+<span class="nc" id="L172">    }</span>
+
+    private CartDTO convertToCartDTO(Carrito carrito) {
+
+<span class="nc" id="L176">        List&lt;CartProductDTO&gt; productosDTO = carrito.getlCarritoProducto()</span>
+<span class="nc" id="L177">                .stream()</span>
+<span class="nc" id="L178">                .map(cp -&gt; new CartProductDTO(</span>
+<span class="nc" id="L179">                        cp.getId(),</span>
+<span class="nc" id="L180">                        new ProductDTO(cp.getProducto().getId(), cp.getProducto().getNombre(), cp.getProducto().getPrecio()),</span>
+<span class="nc" id="L181">                        cp.getCantidad(),</span>
+<span class="nc" id="L182">                        cp.getSubtotal()</span>
+                ))
+<span class="nc" id="L184">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L186">        return new CartDTO(carrito.getId(), carrito.getTotal(), productosDTO);</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

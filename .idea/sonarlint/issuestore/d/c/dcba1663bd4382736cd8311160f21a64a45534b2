@@ -1,0 +1,12 @@
+
+T
+java:S2629/"7Use the built-in formatting to construct this argument.(åŸÏ¯8ç Ë·È2
+O
+java:S3416"-Update this logger to use "DataSource.class".(·‹¯“ùÿÿÿÿ8ÂöË·È2
+G	java:S106("+Replace this use of System.out by a logger.(‹£¸’8ý Ë·È2
+^
+java:S3457/"AFormat specifiers should be used instead of string concatenation.(åŸÏ¯8þ Ë·È2
+c
+java:S34570"AFormat specifiers should be used instead of string concatenation.(â˜Øºøÿÿÿÿ8ÿ Ë·È2
+c
+java:S34571"AFormat specifiers should be used instead of string concatenation.(þƒÊ‚ÿÿÿÿÿ8ÿ Ë·È2
