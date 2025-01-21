@@ -33,12 +33,13 @@ El código se encuentra implementado con Java y Gradle usando las siguientes lib
 ---
 
 ## Desarrollo
-1. Abrir el documento: [Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf](https://github.com/JonEchev/shopping-cart/blob/main/deliverables/Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf)
-2. Instale Java 17 y un IDE de desarrollo como IntelliJ.
-3. Clone este repositorio desde GitHub: https://github.com/JonEchev/shopping-cart.
-4. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart/blob/main/src/main/resources/application.yaml)
-5. Permita la construcción del proyecto con gradle.
-6. Inicialice el proyecto, ejecutando la clase: CarApplication.java
+1. Ingresar a la carpeta: [deliverables](https://github.com/JonEchev/shopping-cart/tree/main/deliverables) en la cual se encuentran los entregables de esta API.
+2. Abrir el documento: [Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf](https://github.com/JonEchev/shopping-cart/blob/main/deliverables/Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf)
+3. Instale Java 17 y un IDE de desarrollo como IntelliJ.
+4. Clone este repositorio desde GitHub: https://github.com/JonEchev/shopping-cart.
+5. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart/blob/main/src/main/resources/application.yaml)
+6. Permita la construcción del proyecto con gradle.
+7. Inicialice el proyecto, ejecutando la clase: CarApplication.java
 
 Para ejecutar las pruebas unitarias:
 1. Ejecute el proyecto desde test en gradle.
