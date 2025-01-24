@@ -1,8 +1,11 @@
 package shopping.general.model;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@Data
 public class CartDTO {
 
     private Long id;
@@ -15,30 +18,6 @@ public class CartDTO {
     public CartDTO(Long id, BigDecimal total, List<CartProductDTO> lCartProduct) {
         this.id = id;
         this.total = total;
-        this.lCartProduct = lCartProduct;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public List<CartProductDTO> getlCartProduct() {
-        return lCartProduct;
-    }
-
-    public void setlCartProduct(List<CartProductDTO> lCartProduct) {
         this.lCartProduct = lCartProduct;
     }
 

@@ -35,6 +35,8 @@ public class CartServiceImpl implements CartService {
 
     Logger log = LogManager.getLogger(CartServiceImpl.class);
 
+    String msgCartNotFound = Utilities.getValueMessage("msg_cart_not_found");
+
     public CartServiceImpl(CarritoRepository carritoRepository, ProductoRepository productoRepository,
                            CarritoProductoRepository carritoProductoRepository) {
         this.carritoRepository = carritoRepository;
@@ -57,7 +59,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO addProduct(Long cartId, CartProductDTO cartProductDTO) {
 
         Carrito carrito = carritoRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_cart_not_found")));
+                .orElseThrow(() -> new RuntimeException(msgCartNotFound));
 
         Producto producto = productoRepository.findById(cartProductDTO.getProduct().getId())
                 .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_id_product_not_found")));
@@ -94,7 +96,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO getCart(Long cartId) {
 
         Carrito carrito = carritoRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_cart_not_found")));
+                .orElseThrow(() -> new RuntimeException(msgCartNotFound));
 
         return convertToCartDTO(carrito);
 
@@ -104,7 +106,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO deleteProduct(Long cartId, Long productId) {
 
         Carrito carrito = carritoRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_cart_not_found")));
+                .orElseThrow(() -> new RuntimeException(msgCartNotFound));
 
         carrito.getlCarritoProducto().removeIf(cp -> cp.getProducto().getId().equals(productId));
         carritoProductoRepository.deleteById(productId);
@@ -119,7 +121,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO updateQuantity(Long cartId, CartProductDTO cartProductDTO) {
 
         Carrito carrito = carritoRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_cart_not_found")));
+                .orElseThrow(() -> new RuntimeException(msgCartNotFound));
 
         CarritoProducto carritoProducto = carrito.getlCarritoProducto()
                 .stream()
@@ -149,7 +151,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO applyCoupon(Long cartId, String codeCoupon) {
 
         Carrito carrito = carritoRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException(Utilities.getValueMessage("msg_cart_not_found")));
+                .orElseThrow(() -> new RuntimeException(msgCartNotFound));
 
         CouponDTO couponDTO = couponService.validateCoupon(codeCoupon);
 
