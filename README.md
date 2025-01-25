@@ -18,8 +18,9 @@ API para la gestión de Carrito de Compras.
 
 ## Descripción
 
-API's que permiten la gestión de un carrito de compras.
-En el documento: [Evaluación Técnica Backend - OUM.pdf](https://github.com/JonEchev/shopping-cart/blob/main/requirement_document/Evaluaci%C3%B3n%20T%C3%A9cnica%20Backend%20-%20OUM.pdf) se encuentra el requerimiento completo que se desarrollo para está API.
+API's que permiten la gestión de un carrito de compras. 
+
+- En el documento: [Evaluación Técnica Backend - OUM.pdf](https://github.com/JonEchev/shopping-cart/blob/main/requirement_document/Evaluaci%C3%B3n%20T%C3%A9cnica%20Backend%20-%20OUM.pdf) se encuentra el requerimiento completo que se desarrollo para está API.
 
 ---
 
