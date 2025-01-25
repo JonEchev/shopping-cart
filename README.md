@@ -61,3 +61,4 @@ Para ejecutar las pruebas unitarias:
 - **Correo electrónico**: jonechev1@gmail.com
 - **GitHub**: [@JonEchev](https://github.com/JonEchev)
 - **LinkedIn**: [jonatan-echeverry](https://www.linkedin.com/in/jonatan-echeverry-7130251a0/)
+- **Blog:** [Crazy Genius!](https://crazycuestionct.blogspot.com/search/label/Programaci%C3%B3n)
