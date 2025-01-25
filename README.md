@@ -19,7 +19,7 @@ API para la gestión de Carrito de Compras.
 ## Descripción
 
 API's que permiten la gestión de un carrito de compras.
-
+En el documento: [Evaluación Técnica Backend - OUM.pdf]() se encuentra el requerimiento completo que se desarrollo para está API.
 ---
 
 ## Construido con
