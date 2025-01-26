@@ -1,4 +1,4 @@
-# shopping-cart
+# shopping-cart-api
 
 API para la gestión de Carrito de Compras.
 
