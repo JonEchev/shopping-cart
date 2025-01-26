@@ -20,7 +20,7 @@ API para la gestión de Carrito de Compras.
 
 API's que permiten la gestión de un carrito de compras. 
 
-- En el documento: [Evaluación Técnica Backend - OUM.pdf](https://github.com/JonEchev/shopping-cart/blob/main/requirement_document/Evaluaci%C3%B3n%20T%C3%A9cnica%20Backend%20-%20OUM.pdf) se encuentra el requerimiento completo que se desarrollo para está API.
+- En el documento: [Evaluación Técnica Backend - OUM.pdf](https://github.com/JonEchev/shopping-cart-api/blob/main/requirement_document/Evaluaci%C3%B3n%20T%C3%A9cnica%20Backend%20-%20OUM.pdf) se encuentra el requerimiento completo que se desarrollo para está API.
 
 ---
 
@@ -36,8 +36,8 @@ El código se encuentra implementado con Java y Gradle usando las siguientes lib
 ---
 
 ## Desarrollo
-1. Ingresar a la carpeta: [deliverables](https://github.com/JonEchev/shopping-cart/tree/main/deliverables) en la cual se encuentran los entregables de esta API.
-2. Abrir el documento: [Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf](https://github.com/JonEchev/shopping-cart/blob/main/deliverables/Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf)
+1. Ingresar a la carpeta: [deliverables](https://github.com/JonEchev/shopping-cart-api/tree/main/deliverables) en la cual se encuentran los entregables de esta API.
+2. Abrir el documento: [Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf](https://github.com/JonEchev/shopping-cart-api/blob/main/deliverables/Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf)
 3. Instale Java 17 y un IDE de desarrollo como IntelliJ.
 4. Clone este repositorio desde GitHub: https://github.com/JonEchev/shopping-cart-api rama: main.
 5. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart-api/blob/main/src/main/resources/application.yaml)
