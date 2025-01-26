@@ -39,8 +39,8 @@ El código se encuentra implementado con Java y Gradle usando las siguientes lib
 1. Ingresar a la carpeta: [deliverables](https://github.com/JonEchev/shopping-cart/tree/main/deliverables) en la cual se encuentran los entregables de esta API.
 2. Abrir el documento: [Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf](https://github.com/JonEchev/shopping-cart/blob/main/deliverables/Instrucciones_Instalacion_Ejecucion_ShoppingCart_Indra.pdf)
 3. Instale Java 17 y un IDE de desarrollo como IntelliJ.
-4. Clone este repositorio desde GitHub: https://github.com/JonEchev/shopping-cart rama: main.
-5. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart/blob/main/src/main/resources/application.yaml)
+4. Clone este repositorio desde GitHub: https://github.com/JonEchev/shopping-cart-api rama: main.
+5. Valide los datos de configuración de la BD en PostgreSQL mediante el archivo: [application.yaml](https://github.com/JonEchev/shopping-cart-api/blob/main/src/main/resources/application.yaml)
 6. Permita la construcción del proyecto con gradle.
 7. Inicialice el proyecto, ejecutando la clase: CarApplication.java
 8. La documentación Swagger del backend se encuentra en la siguiente ruta: http://localhost:80/shopping/swagger-ui/index.html
