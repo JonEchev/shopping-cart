@@ -31,6 +31,7 @@ El código se encuentra implementado con Java y Gradle usando las siguientes lib
 - Lombok - Para simplificar la creación de los medios de acceso a datos de un objeto
 - Spring Data JPA - Gestion de los datos en la Base de Datos PostgreSQL
 - Log4j - Para escribir mensajes de registro
+- Swagger - Para la documentación técnica del código
 
 ---
 
